@@ -1,0 +1,61 @@
+/* src/styles/global.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* === DEFINIÇÃO DOS TEMAS (O Admin controlará isso no futuro) === */
+:root { /* Classic Barber */
+  --bg-outside: #f3a970;
+  --bg-phone: #2a201a;
+  --text-main: #ffffff;
+  --text-muted: #a09a96;
+  --accent: #e27d4c;
+  --accent-hover: #c46437;
+  --input-bg: #3e3229;
+}
+
+[data-theme="light"] { /* Clean Minimalist */
+  --bg-outside: #d1d5db;
+  --bg-phone: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --input-bg: #f3f4f6;
+}
+
+[data-theme="neon"] { /* Midnight Neon */
+  --bg-outside: #1a1025;
+  --bg-phone: #090514;
+  --text-main: #ffffff;
+  --text-muted: #9ca3af;
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --input-bg: #1f1533;
+}
+
+/* O fundo do "computador" que reage ao tema */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-outside);
+  transition: background-color 0.4s ease;
+}
+
+/* Estrutura base do formato "celular" que todas as telas usarão */
+.mobile-screen {
+  background-color: var(--bg-phone);
+  width: 350px;
+  height: 700px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  color: var(--text-main);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}

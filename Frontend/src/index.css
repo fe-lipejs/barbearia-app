@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* === DEFINIÇÃO DOS TEMAS === */
+/* 1. Tema Padrão (Classic Barber da sua imagem) */
+:root {
+  --bg-outside: #f3a970;
+  --bg-phone: #2a201a;
+  --text-main: #ffffff;
+  --text-muted: #a09a96;
+  --accent: #e27d4c;
+  --accent-hover: #c46437;
+  --input-bg: #3e3229;
+}
+
+/* 2. Tema Clean Minimalist (Claro) */
+[data-theme="light"] {
+  --bg-outside: #d1d5db;
+  --bg-phone: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --accent: #2563eb; /* Azul moderno */
+  --accent-hover: #1d4ed8;
+  --input-bg: #f3f4f6;
+}
+
+/* 3. Tema Midnight Neon (Escuro e Ousado) */
+[data-theme="neon"] {
+  --bg-outside: #1a1025;
+  --bg-phone: #090514;
+  --text-main: #ffffff;
+  --text-muted: #9ca3af;
+  --accent: #8b5cf6; /* Roxo Neon */
+  --accent-hover: #7c3aed;
+  --input-bg: #1f1533;
+}
+
+/* === ESTILOS DO APP === */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-outside);
+  transition: background-color 0.4s ease;
+}
+
+.login-screen {
+  background-color: var(--bg-phone);
+  width: 350px;
+  height: 700px;
+  border-radius: 30px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  color: var(--text-main);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+/* Seletor de Temas (Bolinhas no topo) */
+.theme-selector {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.theme-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+  transform: scale(1.2);
+}
+
+.theme-btn.classic { background-color: #e27d4c; }
+.theme-btn.light { background-color: #2563eb; }
+.theme-btn.neon { background-color: #8b5cf6; }
+
+/* Resto dos elementos usando as variáveis */
+.logo-container {
+  margin-top: 50px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-text {
+  color: var(--accent);
+  font-size: 32px;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid var(--accent);
+  border-top: 2px solid var(--accent);
+  padding: 5px 0;
+  transition: color 0.4s ease;
+}
+
+.est-text {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.description {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 50px;
+  line-height: 1.5;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.input-field {
+  width: 100%;
+  background-color: var(--input-bg);
+  border: none;
+  border-radius: 20px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  color: var(--text-main);
+  font-size: 14px;
+  outline: none;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.input-field::placeholder {
+  color: var(--text-muted);
+}
+
+.login-button {
+  background-color: var(--accent);
+  color: #ffffff; /* Botão sempre com texto branco para contraste */
+  border: none;
+  border-radius: 20px;
+  padding: 14px 50px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: var(--accent-hover);
+}
+
+.create-account {
+  margin-top: auto;
+  margin-bottom: 20px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.create-account:hover {
+  text-decoration: underline;
+  color: var(--accent);
+}
