@@ -1,0 +1,71 @@
+/* src/components/Sidebar/Sidebar.css */
+
+.menu-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-container {
+    position: absolute;
+    top: 0; left: -280px; /* Escondido */
+    width: 280px;
+    height: 100%;
+    background: rgba(42, 32, 26, 0.95); /* Cor base com transparência */
+    backdrop-filter: blur(15px);
+    z-index: 999;
+    transition: left 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-container.open { left: 0; }
+
+.sidebar-header {
+    padding: 40px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-info { display: flex; gap: 12px; align-items: center; }
+.avatar { 
+    width: 45px; height: 45px; background: var(--input-bg); 
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px; border: 1px solid var(--accent);
+}
+
+.user-name { font-weight: 600; font-size: 16px; margin: 0; }
+.user-role { font-size: 11px; color: var(--accent); text-transform: uppercase; margin: 0; letter-spacing: 1px; }
+
+.close-menu {
+    background: none; border: none; color: var(--text-muted); font-size: 30px; cursor: pointer;
+}
+
+.sidebar-links { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+
+.nav-label {
+    font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+    margin: 15px 0 5px 10px; letter-spacing: 1.5px;
+}
+
+.nav-item {
+    padding: 14px 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: all 0.2s; font-size: 14px; font-weight: 500;
+}
+
+.nav-item:hover { background: rgba(255, 255, 255, 0.05); color: var(--accent); }
+.nav-item.logout { color: #ff4d4d; margin-top: 10px; }
+.nav-item .icon { font-size: 18px; }

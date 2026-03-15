@@ -59,3 +59,32 @@
   position: relative;
   overflow: hidden;
 }
+
+body {
+  background-color: #121212; /* Um fundo escuro de segurança */
+  margin: 0;
+}
+
+/* Garante que o container ocupe a tela toda */
+.app-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.menu-btn {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-btn .bar {
+    width: 22px;
+    height: 2px;
+    background-color: var(--accent);
+    border-radius: 2px;
+}

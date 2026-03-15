@@ -166,3 +166,26 @@
   color: var(--text-muted);
   font-size: 9px;
 }
+
+.user-greeting {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-greeting span {
+    font-size: 13px;
+    color: var(--text-main);
+}
+
+.avatar-small {
+    width: 35px;
+    height: 35px;
+    background: var(--input-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent);
+}

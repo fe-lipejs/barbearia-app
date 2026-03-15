@@ -11,22 +11,14 @@ function Appointment() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [availableSlots, setAvailableSlots] = useState([]); // Horários do banco
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('usuario'));
     if (user) setUsuarioLogado(user);
   }, []);
 
-  const timeSlots = [
-    { time: "09:00", available: true },
-    { time: "10:00", available: false },
-    { time: "11:00", available: true },
-    { time: "14:00", available: true },
-    { time: "15:00", available: true },
-    { time: "16:00", available: true },
-  ];
-
-  // --- LÓGICA DO CALENDÁRIO ORGANIZADO ---
   const today = new Date();
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
@@ -34,6 +26,25 @@ function Appointment() {
   const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   const emptyDays = Array.from({ length: firstDayOfMonth }, (_, i) => i);
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // BUSCA HORÁRIOS REAIS QUANDO MUDA A DATA
+  useEffect(() => {
+    if (selectedDate && barbeiroId) {
+      setLoadingSlots(true);
+      const dataFormatada = `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.toString().padStart(2, '0')}`;
+      
+      fetch(`http://localhost:3000/api/barbearia/disponibilidade?barbeiro_id=${barbeiroId}&data=${dataFormatada}`)
+        .then(res => res.json())
+        .then(dados => {
+          setAvailableSlots(dados);
+          setLoadingSlots(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoadingSlots(false);
+        });
+    }
+  }, [selectedDate, barbeiroId]);
 
   const handleConfirm = async () => {
     if (!usuarioLogado) { navigate('/login'); return; }
@@ -84,7 +95,10 @@ function Appointment() {
                 key={day} 
                 className={`day-btn ${selectedDate === day ? 'selected' : ''} ${isPast ? 'disabled' : ''}`}
                 disabled={isPast}
-                onClick={() => setSelectedDate(day)}
+                onClick={() => {
+                  setSelectedDate(day);
+                  setSelectedTime(null); // Reseta a hora ao mudar o dia
+                }}
               >
                 {day}
               </button>
@@ -93,21 +107,26 @@ function Appointment() {
         </div>
       </div>
 
-      <h3 className="section-title">Horários</h3>
+      <h3 className="section-title">Horários Disponíveis</h3>
       <div className="time-grid">
-        {timeSlots.map(slot => (
-          <button 
-            key={slot.time}
-            className={`time-btn ${selectedTime === slot.time ? 'selected' : ''} ${!slot.available ? 'busy' : ''}`}
-            disabled={!slot.available}
-            onClick={() => setSelectedTime(slot.time)}
-          >
-            {slot.time}
-          </button>
-        ))}
+        {loadingSlots ? (
+          <p className="status-msg">Carregando horários...</p>
+        ) : availableSlots.length > 0 ? (
+          availableSlots.map(hora => (
+            <button 
+              key={hora} 
+              className={`time-btn ${selectedTime === hora ? 'selected' : ''}`}
+              onClick={() => setSelectedTime(hora)}
+            >
+              {hora}
+            </button>
+          ))
+        ) : (
+          <p className="status-msg">{selectedDate ? "Nenhum horário disponível." : "Selecione um dia primeiro."}</p>
+        )}
       </div>
 
-      <button className="confirm-btn" onClick={handleConfirm}>
+      <button className="confirm-btn" onClick={handleConfirm} disabled={!selectedTime}>
         CONFIRMAR AGENDAMENTO
       </button>
     </div>
